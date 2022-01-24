@@ -2,6 +2,12 @@
 TAG=ngmm-tools
 PWD=$(shell pwd)
 
+NonErgModeling/.git/config:
+	git submodule update --init
+
+examples:
+	git clone git@github.com:glavrentiadis/NonErgModeling.git
+
 build:
 	docker build . -t $(TAG)
 

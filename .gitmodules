@@ -1,0 +1,3 @@
+[submodule "NonErgModeling"]
+	path = NonErgModeling
+	url = git@github.com:glavrentiadis/NonErgModeling.git
