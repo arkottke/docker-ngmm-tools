@@ -5,10 +5,7 @@ PWD=$(shell pwd)
 NonErgModeling/.git/config:
 	git submodule update --init
 
-examples:
-	git clone git@github.com:glavrentiadis/NonErgModeling.git
-
-build:
+build: NonErgModeling/.git/config
 	docker build . -t $(TAG)
 
 debug: build
