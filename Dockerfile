@@ -25,20 +25,18 @@ RUN mamba install --quiet --yes \
         'pandas' \
         'pystan' \
         'scipy' \
-        'r-inlabru' \
-        'r-viridisLite' \
-        'r-fields' \
-        'r-stringr' \
-        'r-assertthat' \
-        'r-pracma' \
-        'r-posterior' \
-        'r-ggplot2' \
+        'r-essentials' \
+        'r-base' \
+        'r-rgeos' \
+        'r-rgdal' \
         && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
 # Install R dependencies
+COPY scripts/install_R_dependencies.R "/home/${NB_USER}/"
+RUN Rscript install_R_dependencies.R && rm install_R_dependencies.R
 
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"

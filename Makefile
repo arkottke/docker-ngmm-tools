@@ -2,10 +2,8 @@
 TAG=ngmm-tools
 PWD=$(shell pwd)
 
-NonErgModeling/.git/config:
-	git submodule update --init
-
-build: NonErgModeling/.git/config
+build:
+	cd NonErgModeling && git pull && cd ..
 	docker build . -t $(TAG)
 
 debug: build
