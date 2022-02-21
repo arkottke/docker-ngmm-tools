@@ -9,7 +9,7 @@ USER root
 # ffmpeg for matplotlib anim & dvipng+cm-super for latex labels
 RUN apt-get update --yes && \
 	apt-get install --yes --no-install-recommends \
-        ffmpeg dvipng cm-super && \
+        ffmpeg dvipng cm-super vim && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER ${NB_UID}
@@ -17,20 +17,24 @@ USER ${NB_UID}
 # Install dependencies
 
 # sp, rgdal, fields, viridisLite, stringr, assertthat, pracma, INLA, inlabru, posterior, ggplot2, maps
+# Version of R limited to be less than 4.2 for INLA to work.
+# pystan 3.4.is only supported from pip. Install version 2 from conda forge for testing purposes
 RUN mamba install --quiet --yes \
         'arviz' \
         'joblib' \
         'matplotlib' \
         'numpy' \
+        'nest-asyncio' \
         'pandas' \
-        'pystan' \
+        'pystan<3' \
         'scipy' \
         'r-essentials' \
-        'r-base' \
+        'r-base<4.2' \
         'r-rgeos' \
         'r-rgdal' \
         && \
     mamba clean --all -f -y && \
+    pip install --no-cache-dir pystan && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
