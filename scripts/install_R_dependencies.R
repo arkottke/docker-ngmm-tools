@@ -3,6 +3,11 @@
 # run the non-ergodic GMM regression with INLA
 #-------------------------------------------------
 
+repos = getOption('repos')
+repos['CRAN'] <- 'https://cran.us.r-project.org'
+repos['INLA'] <- 'https://inla.r-inla-download.org/R/stable'
+options(repos=repos, timeout=800)
+
 #install other packages
 install.packages(c(
                    'sp',
@@ -14,13 +19,8 @@ install.packages(c(
                    'inlabru',
                    'posterior',
                    'ggplot2',
-                   'maps'
+                   'maps',
+                   'INLA'
                    ),
-                 repos='https://cran.us.r-project.org'
+                 dependencies=TRUE
 )
-
-#install INLA
-options(timeout=800)
-install.packages(
-     "INLA", repos=c(getOption("repos"), INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
-
