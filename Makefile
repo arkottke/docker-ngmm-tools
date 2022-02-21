@@ -2,8 +2,10 @@
 TAG=ngmm-tools
 PWD=$(shell pwd)
 
-build:
-	cd NonErgModeling && git pull && cd ..
+NonErgModeling/.git/config:
+	git submodule update --init --remote
+
+build: NonErgModeling/.git/config
 	docker build . -t $(TAG)
 
 debug: build
@@ -11,3 +13,7 @@ debug: build
 
 run: build
 	docker run --rm -p 8888:8888 -v "$(PWD)":/home/jovyan/work $(TAG)
+
+push: build
+	docker tag $(TAG) arkottke/$(TAG)
+	docker push arkottke/$(TAG)
