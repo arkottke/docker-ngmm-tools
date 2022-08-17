@@ -44,7 +44,7 @@ COPY scripts/install_R_dependencies.R "/home/${NB_USER}/"
 RUN Rscript install_R_dependencies.R && rm install_R_dependencies.R
 
 ADD https://api.github.com/repos/NHR3-UCLA/ngmm_tools/git/refs/heads/master /tmp/version.json
-RUN cd /home/${NB_USER}/work && \
+RUN cd /home/${NB_USER} && \
     git clone https://github.com/NHR3-UCLA/ngmm_tools ngmm_tools
 
 # Import matplotlib the first time to build the font cache.
